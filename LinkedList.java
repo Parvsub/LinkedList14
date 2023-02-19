@@ -13,7 +13,7 @@ class LinkedList {
         }
     }
 
-    public void insertfront(int data) {
+    public void append(int data) {
         // Allocating and inserting the data in that node
         Node new_node = new Node(data);
 
