@@ -1,50 +1,91 @@
 package com.Linkedlist;
 
+import java.lang.*;
 
+class Linked
+{
+    Node head;
 
-class  DeleteThelastelement{
-    static class Node {
+    // Node Class
+    class Node
+    {
         int data;
         Node next;
-    };
 
-    static Node removeLastNode(Node head)
-    {
-        if (head == null)
-            return null;
-
-        if (head.next == null) {
-            return null;
+        Node (int x)		// parameterized constructor
+        {
+            data = x;
+            next = null;
         }
+    }
+    //searchNode() will search for a given node in the list
+    public void searchNode (int data)
+    {
+        Node current = head;
+        int i = 1;
+        boolean flag = false;
 
-        Node second_last = head;
-        while (second_last.next.next != null)
-            second_last = second_last.next;
+        //Checks whether list is empty
+        if (head == null)
+        {
+            System.out.println ("List is empty");
+        }
+        else
+        {
+            while (current != null)
+            {
+                //Compares node to be found with each node present in the list
+                if (current.data == data)
+                {
+                    flag = true;
+                    break;
+                }
+                i++;
+                current = current.next;
+            }
+        }
+        if (flag)
+            System.out.
+                    println ("Element is present in the node : " + i);
+        else
+            System.out.println ("Element is not present in the list");
+    }
 
-        second_last.next = null;
+    public Node insert (int data)
+    {
+        Node newNode = new Node (data);
+        newNode.next = head;
+        head = newNode;
 
         return head;
     }
-    static Node push(Node head_ref, int new_data)
+
+    public void display ()
     {
-        Node new_node = new Node();
-        new_node.data = new_data;
-        new_node.next = (head_ref);
-        (head_ref) = new_node;
-        return head_ref;
+        Node node = head;
+        while (node != null)
+        {
+            System.out.print (node.data + " ");
+            node = node.next;
+        }
+        System.out.println ("\n");
     }
 
-    // Driver code
-    public static void main(String args[])
+
+
+}
+
+public class LinkedList
+{
+    public static void main (String args[])
     {
-        Node head = null;
-        head = push(head, 70);
-        head = push(head, 30);
-        head = push(head, 56);
+        Linked list = new Linked();
+
+        list.insert (56);
+        list.insert (30);
+        list.insert (70);
 
 
-        head = removeLastNode(head);
-        for (Node temp = head; temp != null; temp = temp.next)
-            System.out.print(temp.data + " ");
+        list.searchNode (30);
     }
 }
