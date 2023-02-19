@@ -1,5 +1,6 @@
 package com.Linkedlist;
 
+
 public class LinkedList<T> {
     public Node<T> head;
     public Node<T> tail;
@@ -14,18 +15,16 @@ public class LinkedList<T> {
             head = node;
         }
     }
-
-    public void add(T data) {
-        Node<T> newnode = new Node<>(data);
-        if (head == null) {
+    public void add(T data){
+        Node<T> newnode=new Node<>(data);
+        if (head==null) {
             head = newnode;
             tail = newnode;
-        } else {
+        }else {
             tail.setNext(newnode);
-            tail = newnode;
+            tail=newnode;
         }
     }
-
     public Node<T> search(T searchData) {
         Node<T> temp = head;
         while (temp != null) {
@@ -48,18 +47,35 @@ public class LinkedList<T> {
         }
 
     }
-
-    public void show() {
-        if (head == null) {
+    public T pop(){
+        if (head==null) {
+            return null;
+        }else {
+            T data=head.getData();
+            head=(Node<T>) head.getNext();
+            return data;
+        }
+    }
+    public void show(){
+        if (head==null){
             System.out.println("List is Empty");
-        } else {
+        }else {
             Node<T> temp = head;
             while (temp != null) {
-                System.out.print(temp.getData() + " ");
+                System.out.print(temp.getData()+" ");
                 temp = (Node<T>) temp.getNext();
             }
             System.out.println();
         }
     }
-}
+    public boolean isEmpty(){
+        return head==null ? true:false;
+    }
 
+    @Override
+    public String toString() {
+        return "LinkedList{" +
+                "head=" + head +
+                '}';
+    }
+}
