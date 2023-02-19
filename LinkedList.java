@@ -1,64 +1,82 @@
 package com.Linkedlist;
-       public class LinkedList<T> {
-        public Node<T> head;
-        public Node<T> tail;
+import java.io.*;
 
-        public void push(T data) {
-            Node<T> node = new Node<>(data);
-            if (head == null) {
-                head = node;
-                tail = node;
-            } else {
-                node.setNext(head);
-                head = node;
-            }
-        }
+class LinkedList {
+    Node head; // head of list
 
-        public void add(T data) {
-            Node<T> newnode = new Node<>(data);
-            if (head == null) {
-                head = newnode;
-                tail = newnode;
-            } else {
-                tail.setNext(newnode);
-                tail = newnode;
-            }
-        }
+    class Node {
+        int data;
+        Node next;
 
-        public Node<T> search(T searchData) {
-            Node<T> temp = head;
-            while (temp != null) {
-                if (temp.getData().equals(searchData))
-                    return temp;
-                temp = (Node<T>) temp.getNext();
-            }
-            return null;
-        }
-
-        public boolean searchAndInsert(T searchData, T insertData) {
-            Node<T> newNode = new Node(insertData);
-            Node<T> searchedNode = search(searchData);
-            if (searchedNode == null)
-                return false;
-            else {
-                newNode.setNext(searchedNode.getNext());
-                searchedNode.setNext(newNode);
-                return true;
-            }
-
-        }
-
-        public void show() {
-            if (head == null) {
-                System.out.println("List is Empty");
-            } else {
-                Node<T> temp = head;
-                while (temp != null) {
-                    System.out.print(temp.getData() + " ");
-                    temp = (Node<T>) temp.getNext();
-                }
-                System.out.println();
-            }
+        Node(int d) {
+            data = d;
+            next = null;
         }
     }
 
+    public void push(int new_data) {
+
+        Node new_node = new Node(new_data);
+
+        new_node.next = head;
+
+        head = new_node;
+    }
+
+    void deleteNode(int position) {
+        if (head == null)
+            return;
+
+        Node temp = head;
+
+
+        if (position == 0) {
+            head = temp.next;
+            return;
+        }
+
+        for (int i = 0; temp != null && i < position - 1;
+             i++)
+            temp = temp.next;
+
+
+        if (temp == null || temp.next == null)
+            return;
+
+
+        Node next = temp.next.next;
+
+        temp.next
+                = next;
+    }
+
+    public void printList() {
+        Node tnode = head;
+        while (tnode != null) {
+            System.out.print(tnode.data + " ");
+            tnode = tnode.next;
+        }
+    }
+
+    /* Driver program to test above functions. Ideally this
+       function should be in a separate user class.  It is
+       kept here to keep code compact */
+    public static void main(String[] args) {
+        LinkedList list = new LinkedList();
+
+        list.push(70);
+        list.push(40);
+        list.push(30);
+        list.push(56);
+
+
+        System.out.println("\nCreated Linked list is: ");
+        list.printList();
+
+        list.deleteNode(2);
+
+        System.out.println(
+                "\nLinked List after Deletion at position 4: ");
+        list.printList();
+    }
+}
