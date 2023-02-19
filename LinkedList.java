@@ -1,91 +1,64 @@
 package com.Linkedlist;
+       public class LinkedList<T> {
+        public Node<T> head;
+        public Node<T> tail;
 
-import java.lang.*;
-
-class Linked
-{
-    Node head;
-
-    // Node Class
-    class Node
-    {
-        int data;
-        Node next;
-
-        Node (int x)		// parameterized constructor
-        {
-            data = x;
-            next = null;
-        }
-    }
-    //searchNode() will search for a given node in the list
-    public void searchNode (int data)
-    {
-        Node current = head;
-        int i = 1;
-        boolean flag = false;
-
-        //Checks whether list is empty
-        if (head == null)
-        {
-            System.out.println ("List is empty");
-        }
-        else
-        {
-            while (current != null)
-            {
-                //Compares node to be found with each node present in the list
-                if (current.data == data)
-                {
-                    flag = true;
-                    break;
-                }
-                i++;
-                current = current.next;
+        public void push(T data) {
+            Node<T> node = new Node<>(data);
+            if (head == null) {
+                head = node;
+                tail = node;
+            } else {
+                node.setNext(head);
+                head = node;
             }
         }
-        if (flag)
-            System.out.
-                    println ("Element is present in the node : " + i);
-        else
-            System.out.println ("Element is not present in the list");
-    }
 
-    public Node insert (int data)
-    {
-        Node newNode = new Node (data);
-        newNode.next = head;
-        head = newNode;
-
-        return head;
-    }
-
-    public void display ()
-    {
-        Node node = head;
-        while (node != null)
-        {
-            System.out.print (node.data + " ");
-            node = node.next;
+        public void add(T data) {
+            Node<T> newnode = new Node<>(data);
+            if (head == null) {
+                head = newnode;
+                tail = newnode;
+            } else {
+                tail.setNext(newnode);
+                tail = newnode;
+            }
         }
-        System.out.println ("\n");
+
+        public Node<T> search(T searchData) {
+            Node<T> temp = head;
+            while (temp != null) {
+                if (temp.getData().equals(searchData))
+                    return temp;
+                temp = (Node<T>) temp.getNext();
+            }
+            return null;
+        }
+
+        public boolean searchAndInsert(T searchData, T insertData) {
+            Node<T> newNode = new Node(insertData);
+            Node<T> searchedNode = search(searchData);
+            if (searchedNode == null)
+                return false;
+            else {
+                newNode.setNext(searchedNode.getNext());
+                searchedNode.setNext(newNode);
+                return true;
+            }
+
+        }
+
+        public void show() {
+            if (head == null) {
+                System.out.println("List is Empty");
+            } else {
+                Node<T> temp = head;
+                while (temp != null) {
+                    System.out.print(temp.getData() + " ");
+                    temp = (Node<T>) temp.getNext();
+                }
+                System.out.println();
+            }
+        }
     }
 
-
-
-}
-
-public class LinkedList
-{
-    public static void main (String args[])
-    {
-        Linked list = new Linked();
-
-        list.insert (56);
-        list.insert (30);
-        list.insert (70);
-
-
-        list.searchNode (30);
-    }
-}
