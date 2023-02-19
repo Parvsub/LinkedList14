@@ -1,32 +1,64 @@
 package com.Linkedlist;
 
-class LinkedList {
-    Node head;
+public class LinkedList<T> {
+    public Node<T> head;
+    public Node<T> tail;
 
-    class Node {
-        int data;
-        Node next;
-
-        Node(int d) {
-            data = d;
-            next = null;
+    public void push(T data) {
+        Node<T> node = new Node<>(data);
+        if (head == null) {
+            head = node;
+            tail = node;
+        } else {
+            node.setNext(head);
+            head = node;
         }
     }
 
-    public void append(int data) {
-        // Allocating and inserting the data in that node
-        Node new_node = new Node(data);
-
-
-        new_node.next = head;
-        head = new_node;
+    public void add(T data) {
+        Node<T> newnode = new Node<>(data);
+        if (head == null) {
+            head = newnode;
+            tail = newnode;
+        } else {
+            tail.setNext(newnode);
+            tail = newnode;
+        }
     }
 
-    public void print() {
-        Node temp = head;
+    public Node<T> search(T searchData) {
+        Node<T> temp = head;
         while (temp != null) {
-            System.out.print(temp.data + " ");
-            temp = temp.next;
+            if (temp.getData().equals(searchData))
+                return temp;
+            temp = (Node<T>) temp.getNext();
+        }
+        return null;
+    }
+
+    public boolean searchAndInsert(T searchData, T insertData) {
+        Node<T> newNode = new Node(insertData);
+        Node<T> searchedNode = search(searchData);
+        if (searchedNode == null)
+            return false;
+        else {
+            newNode.setNext(searchedNode.getNext());
+            searchedNode.setNext(newNode);
+            return true;
+        }
+
+    }
+
+    public void show() {
+        if (head == null) {
+            System.out.println("List is Empty");
+        } else {
+            Node<T> temp = head;
+            while (temp != null) {
+                System.out.print(temp.getData() + " ");
+                temp = (Node<T>) temp.getNext();
+            }
+            System.out.println();
         }
     }
 }
