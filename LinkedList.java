@@ -1,37 +1,31 @@
 package com.Linkedlist;
 
-public class LinkedList {
-    private static class Node
-    {
-        int data = 70;
+class LinkedList {
+    Node head;
+
+    class Node {
+        int data;
         Node next;
-        Node(int data)
-        {
-            this.data= data;
+
+        Node(int d) {
+            data = d;
             next = null;
         }
     }
-    Node head;
-    public void add(int data)
-    {
-        Node toinsert= new Node(data );
-        if(head== null)
-        {
-            head = toinsert;
-            return;
-        }
-        Node temp = head;
-        while(temp.next!=null)
-        {
-            temp = temp.next;
-        }
-        temp.next = toinsert;
+
+    public void insertfront(int data) {
+        // Allocating and inserting the data in that node
+        Node new_node = new Node(data);
+
+
+        new_node.next = head;
+        head = new_node;
     }
-    //Print list
+
     public void print() {
         Node temp = head;
         while (temp != null) {
-            System.out.println(temp.data);
+            System.out.print(temp.data + " ");
             temp = temp.next;
         }
     }
